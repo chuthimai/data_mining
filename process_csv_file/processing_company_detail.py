@@ -3,9 +3,9 @@ import re
 
 
 class ProcessingCompanyDetail:
-    def __init__(self, file_name="../file_csv/job_posting.csv"):
-        self.file_name = file_name
-        self.df = pd.read_csv(file_name)
+    def __init__(self, file_path="../file_csv/job_posting.csv"):
+        self.file_path = file_path
+        self.df = pd.read_csv(file_path)
         self.process_size_of_company()
         self.process_followers_of_company()
 

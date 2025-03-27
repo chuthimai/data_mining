@@ -63,7 +63,6 @@ if __name__ == '__main__':
         experience.`description`,
         experience.start_date,
         experience.end_date,
-        experience.start_end,
         experience.change_job,
         profile_info.headline as headline_of_applicant,
         profile_info.location as locatio_of_applicant,

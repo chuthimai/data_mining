@@ -7,11 +7,11 @@ from process_csv_file.processing_company_detail import ProcessingCompanyDetail
 
 
 class ProcessingJobPosting:
-    def __init__(self, file_name="../file_csv/job_posting.csv"):
-        self.file_name = file_name
+    def __init__(self, file_path="../file_csv/job_posting.csv"):
+        self.file_path = file_path
         self.keywords_contain = {"experience", "skill"}
         self.keywords_not_contain = {"your experience", "your growing skill", "your skill"}
-        self.df = pd.read_csv(file_name)  # Đọc file CSV
+        self.df = pd.read_csv(file_path)  # Đọc file CSV
         self.process_num_applicants()  # Xử lý num_applicants
         self.process_job_descriptions() # Xử lý description
 
@@ -89,7 +89,7 @@ if __name__ == "__main__":
     process_company_detail = ProcessingCompanyDetail(file_path_input)
     process_company_detail.save_csv(output_file=file_path_output)
 
-    processor_job_posting = ProcessingJobPosting(file_name=file_path_output)
+    processor_job_posting = ProcessingJobPosting(file_path=file_path_output)
 
     print("Danh sách các trường:", processor_job_posting.get_columns())
     print("Tổng số bản ghi:", processor_job_posting.get_total_records())

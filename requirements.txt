@@ -1,3 +1,5 @@
 mysql-connector-python == 9.2.0
 flask==3.1.0
 beautifulsoup4==4.13.3
+dateparser==1.2.1
+deep-translator==1.11.4
