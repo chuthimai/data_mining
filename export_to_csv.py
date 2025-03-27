@@ -73,5 +73,5 @@ if __name__ == '__main__':
     limit 100
     ;
     '''
-    # export_to_csv.mysql_to_csv(query=query1, file_path="./file_csv_limit/job_posting.csv")
+    export_to_csv.mysql_to_csv(query=query1, file_path="./file_csv_limit/job_posting.csv")
     export_to_csv.mysql_to_csv(query=query2, file_path="./file_csv_limit/experience.csv")
