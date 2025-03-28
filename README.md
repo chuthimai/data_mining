@@ -29,11 +29,6 @@ Chứa các file `.csv` lấy từ CSDL để test thử, giới hạn 100 hàng
 ### **file_csv_after_processed/**
 Chứa các file `.csv` sau khi xử lý dữ liệu từ thư mục `file_csv_limit`.
 
-### **process_csv_file/**
-Chứa các file `.py` để xử lý dữ liệu từ file `.csv` trong thư mục `file_csv_limit` và lưu kết quả vào thư mục `file_csv_after_processed`.
-- **processing_job_posting.py**: Xử lý dữ liệu bảng `job_posting` kết hợp (`join`) với bảng `company_detail`.
-- **processing_experience.py**: Xử lý dữ liệu bảng `experience` kết hợp (`join`) với bảng `profile_info`.
-
 ### **export_to_csv.py**
 Chạy file này để trích xuất dữ liệu từ CSDL và lưu vào các file `.csv` trong thư mục `file_csv_limit`.
 
@@ -41,6 +36,13 @@ Chạy bằng lệnh:
 ```sh
 python export_to_csv.py
 ```
+
+### **process_csv_file/**
+Chứa các file `.py` để xử lý dữ liệu từ file `.csv` trong thư mục `file_csv_limit` và lưu kết quả vào thư mục `file_csv_after_processed`.
+
+> Cần `chạy trực tiếp` trong file vì sd đường dẫn động.
+- **processing_job_posting.py**: Xử lý dữ liệu bảng `job_posting` kết hợp (`join`) với bảng `company_detail`.
+- **processing_experience.py**: Xử lý dữ liệu bảng `experience` kết hợp (`join`) với bảng `profile_info`.
 
 ### **server_display_json_data.py**
 Chạy server Flask để xem dữ liệu chi tiết từ một trong bốn bảng (`job_posting`, `company_detail`, `experience`, `profile_info`).
