@@ -28,7 +28,7 @@ if __name__ == '__main__':
     export_to_csv = ExportToCSV()
     query1 = '''
     select 
-        -- job_posting.id,
+        job_posting.id,
         job_posting.title, 
         job_posting.company_name, 
         job_posting.location, 
@@ -58,20 +58,37 @@ if __name__ == '__main__':
 
     query2 = '''
     select 
+        profile_info.id,
         experience.title,
         experience.company,
         experience.`description`,
         experience.start_date,
         experience.end_date,
-        experience.change_job,
-        profile_info.headline as headline_of_applicant,
-        profile_info.location as locatio_of_applicant,
-        profile_info.summary as summary_of_applicant
+        experience.start_end,
+        -- profile_info.headline as headline_of_applicant,
+        profile_info.location as location_of_applicant,
+        profile_info.summary as summary_of_applicant,
+        company_detail.industry as industry_of_company
     from RD.experience
     left join RD.profile_info
     on experience.public_id = profile_info.public_id
+    left join RD.company_detail 
+    on company_detail.cid = experience.company_id
+    where experience.`description` != ""
+    or profile_info.summary != ""
+    and experience.title != ""
     limit 100
     ;
     '''
-    export_to_csv.mysql_to_csv(query=query1, file_path="./file_csv_limit/job_posting.csv")
+    # export_to_csv.mysql_to_csv(query=query1, file_path="./file_csv_limit/job_posting.csv")
     export_to_csv.mysql_to_csv(query=query2, file_path="./file_csv_limit/experience.csv")
+    # query3 = 'select public_id from profile_info limit 100;'
+    # query4 = 'select public_id from experience limit 100;'
+    # query5 = 'select cid from company_detail limit 100;'
+    # query6 = 'select id from job_posting limit 100;'
+    # export_to_csv.mysql_to_csv(query=query3, file_path="./file_csv_limit/id_profile_info.csv")
+    # export_to_csv.mysql_to_csv(query=query4, file_path="./file_csv_limit/id_experience.csv")
+    # export_to_csv.mysql_to_csv(query=query5, file_path="./file_csv_limit/id_company_detail.csv")
+    # export_to_csv.mysql_to_csv(query=query6, file_path="./file_csv_limit/id_job_posting.csv")
+
+

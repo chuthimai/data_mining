@@ -29,9 +29,9 @@ def experience(public_id):
     return jsonify(results)
 
 
-@app.route('/company_detail/<int:id>')
-def company_detail(id):
-    query = f"SELECT * FROM company_detail where cid = {id};"
+@app.route('/company_detail/<int:cid>')
+def company_detail(cid):
+    query = f"SELECT * FROM company_detail where cid = {cid};"
     cursor.execute(query)
     results = cursor.fetchall()
     return jsonify(results)

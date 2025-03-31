@@ -3,6 +3,13 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
+        <entry key="/file_csv/profile_info.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/file_csv_after_processed/experience.csv">
           <value>
             <Attribute>
@@ -18,6 +25,20 @@
           </value>
         </entry>
         <entry key="/file_csv_limit/experience.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/file_csv_limit/id_job_posting.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/file_csv_limit/job_posting.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

@@ -1,3 +1,5 @@
+import re
+
 import pandas as pd
 import dateparser
 from deep_translator import GoogleTranslator
@@ -9,6 +11,7 @@ class ProcessingExperience:
         self.df = pd.read_csv(file_path)
         self.process_dates()
         self.translate_columns()
+        self.merge_description_summary()
 
     def process_dates(self):
         """Chuẩn hóa ngày tháng và tính khoảng thời gian giữa start_date và end_date"""
@@ -48,9 +51,11 @@ class ProcessingExperience:
         return None  # Nếu không thể parse
 
     def translate_columns(self):
-        """Dịch nội dung cột description và summary_of_applicant về tiếng Anh"""
+        """Dịch nội dung các cột về tiếng Anh"""
         self.df['description'] = self.df['description'].apply(self.translate_text)
         self.df['summary_of_applicant'] = self.df['summary_of_applicant'].apply(self.translate_text)
+        self.df['title'] = self.df['title'].apply(self.translate_text)
+        self.df['title'] = self.df['title'].apply(self.clean_text)
 
     def translate_text(self, text):
         """Dịch văn bản sang tiếng Anh nếu không phải"""
@@ -63,6 +68,32 @@ class ProcessingExperience:
         except Exception as e:
             print(f"Error translating text: {text} - {e}")
             return text  # Trả về nội dung gốc nếu lỗi
+
+    def merge_description_summary(self):
+        """Nối cột description và summary_of_applicant thành description"""
+        self.df['description'] = self.df[
+            ['description', 'summary_of_applicant']
+        ].fillna('').agg(' '.join, axis=1).str.strip()
+        self.df.drop(columns=['summary_of_applicant'], inplace=True)
+
+    def clean_text(self, text):
+        """Làm sạch văn bản, loại bỏ ký hiệu vô nghĩa & icon"""
+        if pd.isna(text) or not isinstance(text, str):
+            return text
+
+        text = re.sub(r'\.Net', 'DOTNET_TEMP', text, flags=re.IGNORECASE)
+
+        # Loại bỏ các ký hiệu không mong muốn
+        text = re.sub(r'[?.,!@#$%^&*()_+=<>/|\\{}[\]~-]', ' ', text)
+
+        # Loại bỏ ký tự icon & emoji (mã Unicode)
+        text = re.sub(r'[\U00010000-\U0010FFFF]', '', text, flags=re.UNICODE)
+        text = re.sub(r'\s+', ' ', text).strip()
+
+        # Đổi lại `.Net`
+        text = re.sub(r'DOTNET_TEMP', '.Net', text, flags=re.IGNORECASE)
+
+        return text
 
     def get_columns(self):
         """Lấy danh sách các trường trong file CSV"""
