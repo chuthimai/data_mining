@@ -14,6 +14,9 @@ class ProcessingExperience:
         self.merge_description_summary()
 
     def process_dates(self):
+        if not {'start_date', 'end_date'}.issubset(self.df.columns):
+            return
+
         """Chuẩn hóa ngày tháng và tính khoảng thời gian giữa start_date và end_date"""
         self.df['start_date'] = self.df['start_date'].apply(self.normalize_date)
         self.df['end_date'] = self.df['end_date'].apply(self.normalize_date)
